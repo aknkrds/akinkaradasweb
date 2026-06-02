@@ -579,7 +579,7 @@ function App() {
   // Scroll spy to highlight active nav link
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'services', 'process', 'projects', 'pricing', 'estimator', 'timeline', 'faq', 'contact'];
+      const sections = ['hero', 'about', 'services', 'technologies', 'process', 'projects', 'pricing', 'estimator', 'timeline', 'faq', 'contact'];
       const scrollPosition = window.scrollY + 160;
 
       for (const section of sections) {
@@ -2139,7 +2139,7 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Akın Karadaş. {lang === 'tr' ? 'Tüm Hakları Saklıdır.' : 'All Rights Reserved.'}</p>
+        <p>&copy; {new Date().getFullYear()} Akın Karadaş. {lang === 'tr' ? 'Tüm Hakları Saklıdır. v.0.1' : 'All Rights Reserved. v.0.1'}</p>
       </footer>
     </>
   );
