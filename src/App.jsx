@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import avatarImg from './assets/avatar.png'
 import erpCrmImg from './assets/erp_crm.png'
 import warehouseStockImg from './assets/warehouse_stock.png'
 import ecommerceImg from './assets/ecommerce.png'
@@ -14,7 +13,7 @@ const TRANSLATIONS = {
   tr: {
     navAbout: "Kurumsal",
     navProjects: "Çözümlerimiz",
-    navTimeline: "Metrikler & Tarihçe",
+    navTimeline: "Çalışma Sürecimiz",
     navContact: "İletişim",
     heroTitle: "Kurumsal Süreçlerde Sıfır Hata, Maksimum Verimlilik",
     heroDescription: "Tekstil, üretim ve toptan ticaret sektörlerindeki işletmeler için uçtan uca dijital dönüşüm, özel ERP/CRM entegrasyonları ve akıllı depo otomasyonları tasarlıyoruz. Operasyonel riskleri siliyor, süreç takibini kurumsal standartlara taşıyoruz.",
@@ -30,9 +29,9 @@ const TRANSLATIONS = {
     tabSkills: "Çözüm Alanlarımız",
     tabEducation: "Stratejik Yaklaşım",
     tabTools: "Odak Sektörler",
-    timelineHeaderTag: "Tarihçe",
-    timelineHeaderTitle: "Kilometre Taşları & Metrikler",
-    timelineHeaderSubtitle: "Bugüne kadar kurumsal işletmelere ve üretim tesislerine kazandırdığımız dijital yetkinlikler.",
+    timelineHeaderTag: "Çalışma Süreci",
+    timelineHeaderTitle: "Proje Süreciniz Nasıl İlerler?",
+    timelineHeaderSubtitle: "Süreç analizinden canlıya almaya kadar, şeffaf ve profesyonel bir teslim akışı.",
     contactHeaderTag: "İş Birliği",
     contactHeaderTitle: "Dijital Dönüşümü Başlatın",
     contactHeaderSubtitle: "İşletmenizin süreçlerini optimize etmek veya bütçe/kapsam analizi almak için ön analiz formu gönderin.",
@@ -40,37 +39,16 @@ const TRANSLATIONS = {
     contactFormEmail: "Kurumsal E-posta Adresi",
     contactFormMsg: "Talep Detayı veya Proje Kapsamı",
     contactFormSubmit: "Ön Analiz Talebi Gönder",
-    estimatorTitle: "Dijital Dönüşüm Kapsam ve Bütçe Planlayıcı",
-    estimatorSubtitle: "İşletmenizin ihtiyaç duyduğu kurumsal modülleri seçin, tahmini bütçe ve teslim süresini anında planlayın.",
-    estimatorServices: "Entegre Edilecek Kurumsal Çözümler",
-    estimatorScale: "İşletme / Operasyon Ölçeği",
-    estimatorScaleStartup: "KOBİ / Yerel İşletme",
-    estimatorScaleSMB: "Üretici / Orta Ölçekli Fabrika",
-    estimatorScaleEnterprise: "Holding / Büyük Ölçekli Grup",
-    estimatorSpeed: "Devreye Alma Stratejisi",
-    estimatorSpeedStandard: "Planlı Faz Entegrasyonu (Normal Hız)",
-    estimatorSpeedExpress: "Hızlandırılmış Canlıya Geçiş (Express Delivery +%30)",
-    estimatorResultCost: "Tahmini Yatırım Bütçesi",
-    estimatorResultTime: "Tahmini Teslim Süresi",
-    estimatorResultAction: "Bu Kapsamla Ön Analiz Toplantısı Planla",
-    estimatorResultTimeVal: "hafta",
     techHeader: "Kullanılan Kurumsal Teknolojiler",
     projectLink: "Kapsam Detay Talebi",
     statusBadge: "Kurumsal Danışmanlığa Açık",
     visitorBoardLive: "Canlı",
-    successMsg: "Talebiniz başarıyla alındı. En kısa sürede kurumsal analiz ekibimiz sizinle iletişime geçecektir.",
-    estimationTitleInput: "Planlanan Proje Kapsamı:",
-    estimationServicesInput: "Çözümler:",
-    estimationScaleInput: "Ölçek:",
-    estimationSpeedInput: "Strateji:",
-    estimationCostInput: "Yatırım Bütçesi:",
-    estimationTimeInput: "Süre:",
-    estimationDisclaimer: "Bu bütçe tahmini bir ön analizdir. Kesin fizibilite çalışması için lütfen analiz toplantısı talep edin."
+    successMsg: "Talebiniz başarıyla alındı. En kısa sürede kurumsal analiz ekibimiz sizinle iletişime geçecektir."
   },
   en: {
     navAbout: "Enterprise",
     navProjects: "Solutions",
-    navTimeline: "Metrics & History",
+    navTimeline: "Process",
     navContact: "Contact",
     heroTitle: "Zero-Error Operations, Maximum Productivity",
     heroDescription: "We engineer digital transformation strategies, custom ERP/CRM integrations, and smart warehouse management systems for textile, manufacturing, and wholesale sectors. We streamline tracking and eliminate operational risk.",
@@ -86,9 +64,9 @@ const TRANSLATIONS = {
     tabSkills: "Advisory Areas",
     tabEducation: "Delivery Strategy",
     tabTools: "Target Industries",
-    timelineHeaderTag: "History",
-    timelineHeaderTitle: "Milestones & Metrics",
-    timelineHeaderSubtitle: "Key operational benchmarks and system implementations delivered to enterprise clients.",
+    timelineHeaderTag: "Process",
+    timelineHeaderTitle: "How Your Project Moves Forward",
+    timelineHeaderSubtitle: "A transparent, professional delivery flow from analysis to go-live.",
     contactHeaderTag: "Partnership",
     contactHeaderTitle: "Initiate Digital Transformation",
     contactHeaderSubtitle: "Submit a request to schedule an operational audit meeting or clarify your project scope.",
@@ -96,31 +74,10 @@ const TRANSLATIONS = {
     contactFormEmail: "Corporate Email Address",
     contactFormMsg: "Project Scope or Advisory Details",
     contactFormSubmit: "Request Technical Audit",
-    estimatorTitle: "Enterprise Scope & Budget Planner",
-    estimatorSubtitle: "Select the required modules to plan your operational digital investment and development timeline.",
-    estimatorServices: "Modules to Integrate",
-    estimatorScale: "Operational Scale",
-    estimatorScaleStartup: "SMB / Local Business",
-    estimatorScaleSMB: "Manufacturer / Mid-size Factory",
-    estimatorScaleEnterprise: "Conglomerate / Group Enterprise",
-    estimatorSpeed: "Deployment Strategy",
-    estimatorSpeedStandard: "Phased Integration (Standard)",
-    estimatorSpeedExpress: "Express Deployment (+30% Cost)",
-    estimatorResultCost: "Estimated Capital Expenditure",
-    estimatorResultTime: "Estimated Timeline",
-    estimatorResultAction: "Schedule Audit with this Scope",
-    estimatorResultTimeVal: "weeks",
     techHeader: "Enterprise Technologies",
     projectLink: "Request Detailed Scope",
     statusBadge: "Available for Consultations",
-    successMsg: "Your request has been received. Our advisory team will follow up within 24 hours.",
-    estimationTitleInput: "Planned Scope Details:",
-    estimationServicesInput: "Modules:",
-    estimationScaleInput: "Scale:",
-    estimationSpeedInput: "Strategy:",
-    estimationCostInput: "Est. CapEx:",
-    estimationTimeInput: "Duration:",
-    estimationDisclaimer: "This estimate serves as an initial budget guideline. Contact us for a full feasibility report."
+    successMsg: "Your request has been received. Our advisory team will follow up within 24 hours."
   }
 };
 
@@ -283,8 +240,8 @@ const PROJECTS = [
     analysis_en: 'Conducted a physical warehouse audit. Discovered that individual barcode scanning at loading docks created major bottleneck queues, and manual carton counting during peak hours was the primary source of dispatch errors.',
     design_tr: 'Depo giriş ve sevkiyat yükleme kapılarına RFID geçiş antenleri tasarlandı. Üretim hattından çıkan her ürüne RFID etiket atanması ve depo yönetim sistemine (WMS) anlık veri besleyen çift yönlü bir entegrasyon şeması kurgulandı.',
     design_en: 'Designed portal-gate RFID scanners at entry/loading points. Planned automatic serialization for each carton exiting production and mapped a real-time event pipeline to sync with the enterprise warehouse system (WMS).',
-    tech_tr: 'RFID UHF Donanım Protokolleri, NestJS Mikroservisleri, React Admin Dashboard, PostgreSQL, AWS Cloud Sync',
-    tech_en: 'RFID UHF Hardware Protocols, NestJS Microservices, React Admin Dashboard, PostgreSQL, AWS Cloud Sync',
+    tech_tr: 'RFID donanım entegrasyonu, kurumsal servis mimarisi, yönetim paneli, ilişkisel veri tabanı, bulut senkronizasyonu',
+    tech_en: 'RFID hardware integration, enterprise service architecture, management dashboard, relational database, cloud synchronization',
     implementation_tr: 'Üretim akışını kesmeden, sistem 4 aşamalı faz ile devreye alındı. RFID donanım kalibrasyonları yapıldı ve depo çalışanlarına uygulamalı saha eğitimleri verildi. Sistem ilk ay paralel takip modunda çalıştırılarak optimize edildi.',
     implementation_en: 'Systems deployed in four consecutive weekends to prevent operational downtime. Fine-tuned antenna signal ranges to avoid cross-talk, and provided hands-on tablet workflow tutorials to shift workers.',
     results_tr: 'Sevkiyat hata oranı %8.2\'den %0.1\'in altına indirildi. Sipariş teslimat döngü süresi 48 saatten 6 saate düşürüldü. Sevkiyat hızı ve veri doğruluğu sayesinde yıllık operasyonel kayıplar önlendi; yatırım kendini 7 ayda amorti etti.',
@@ -306,8 +263,8 @@ const PROJECTS = [
     analysis_en: 'Mapped operational workflow diagrams for material requisition and production dispatch. Revealed that manual document approvals delayed processing schedules by an average of 3 days per batch.',
     design_tr: 'Tüm birimleri ortak bir veri tabanında buluşturan ve anlık veri akışı sağlayan bulut tabanlı bir ERP mimarisi tasarlandı. Fabrika operatörlerinin iş emirlerini dijital olarak takip edebilmeleri için kullanıcı dostu tablet ekranları planlandı.',
     design_en: 'Architected a consolidated cloud ERP scheme. Planned simple, high-contrast industrial tablet UIs for machinery operators to update job ticket completion statuses on the production floor directly.',
-    tech_tr: 'Node.js Kurumsal Servisleri, Next.js Yönetim Paneli, Docker Containerization, PostgreSQL, AWS RDS High-Availability',
-    tech_en: 'Node.js Enterprise Services, Next.js Admin Panel, Docker Containerization, PostgreSQL, AWS RDS High-Availability',
+    tech_tr: 'Kurumsal arka plan servisleri, yönetim paneli, konteyner tabanlı dağıtım, ilişkisel veri tabanı, yüksek erişilebilirlik mimarisi',
+    tech_en: 'Enterprise backend services, management dashboard, container-based deployment, relational database, high-availability architecture',
     implementation_tr: 'Veri kaybını önlemek amacıyla hafta sonları veri göçü (migration) gerçekleştirilerek modüller kademeli şekilde devreye alındı. Personel yetkilendirmeleri yapıldı ve yeni sistem test aşamalarıyla sahada doğrulandı.',
     implementation_en: 'Phased database migrations executed during weekend windows to prevent production stalls. Run pilot checks on raw material inventory logs before unlocking the full finance modules.',
     results_tr: 'Departmanlar arası veri akışı gecikmesi tamamen sıfırlandı. Hammadde envanter maliyetleri %22 oranında düşürüldü ve sipariş teslimat süreçlerinde %30 verimlilik artışı sağlandı.',
@@ -329,8 +286,8 @@ const PROJECTS = [
     analysis_en: 'Audited the sales cycle from requisition to accounts receivable. Found that sales account managers spent 65% of their billable hours manually entering orders and sending statement reports.',
     design_tr: 'Bayilerin özel fiyatlandırma, güncel stok durumlarını görebildikleri, doğrudan ödeme yapıp fatura indirebildikleri ve mevcut ERP sistemiyle API\'ler aracılığıyla senkronize çalışan güvenli B2B bayi portalı tasarlandı.',
     design_en: 'Designed an interactive B2B dealer workspace displaying customer-specific pricing and stock. Built a direct API connector to sync orders, invoice documents, and ledger balance accounts.',
-    tech_tr: 'React Frontend, Go REST API, SAP / Logo ERP Entegrasyon Köprüsü, Redis Caching, iyzico Payment API',
-    tech_en: 'React Frontend, Go REST API, SAP / Logo ERP Integration Bridge, Redis Caching, iyzico Payment API',
+    tech_tr: 'Kurumsal web arayüzü, güvenli API entegrasyon katmanı, ERP senkronizasyon köprüsü, önbellekleme katmanı, ödeme entegrasyonu',
+    tech_en: 'Enterprise web interface, secure API integration layer, ERP synchronization bridge, caching layer, payment integration',
     implementation_tr: 'Portal sızma testlerine (Penetration Test) tabi tutularak üst düzey güvenlik sağlandı. İlk fazda 50 pilot bayi ile canlıda test edildi, gelen geri bildirimler doğrultusunda optimize edilerek tüm bayi ağına açıldı.',
     implementation_en: 'Subjected the API gateways to penetration testing to secure financial endpoints. Launched a beta pilot program with 50 wholesale dealers, refining the checkout interface before scale launch.',
     results_tr: 'Manuel sipariş girişi ve mutabakat hataları sıfıra indirildi. Alacak tahsilat süresi (DSO) ortalama 45 günden 18 güne düşürüldü. Satış ekibinin operasyonel yükü %75 hafifletildi.',
@@ -352,8 +309,8 @@ const PROJECTS = [
     analysis_en: 'Processed five years of daily wholesale invoice records, seasonal weather tables, and regional purchase schedules. Discovered that the planning team’s forecasting margin of error stood at 28%.',
     design_tr: 'Zaman serisi tahminleme (Time Series Forecasting) modelleri kullanan, mevcut ERP envanter modülüne bağlı çalışan ve otomatik satın alma önerileri sunan yapay zeka destekli bir tahmin motoru kurgulandı.',
     design_en: 'Built an automated ML forecasting engine running time-series algorithms. Created an API connection to suggest purchasing orders based on real-time inventory levels.',
-    tech_tr: 'Python (Pandas, Prophet, Scikit-learn), FastAPI, PostgreSQL, React Dashboard, Docker Containerization',
-    tech_en: 'Python (Pandas, Prophet, Scikit-learn), FastAPI, PostgreSQL, React Dashboard, Docker Containerization',
+    tech_tr: 'Veri analiz katmanı, API servisleri, ilişkisel veri depolama, analitik panel, güvenli dağıtım altyapısı',
+    tech_en: 'Data analytics layer, API services, relational data storage, analytics dashboard, secure deployment pipeline',
     implementation_tr: 'ML modelleri geçmiş verilerle eğitilip doğruluk oranı %92\'nin üzerine çıkana dek optimize edildi. Satın alma biriminin kolayca onay verebileceği basit bir öneri paneli geliştirildi ve ERP sistemine bağlandı.',
     implementation_en: 'Trained algorithms on historical datasets until forecast accuracy validated above 92%. Engineered a single-click review dashboard integrated directly with procurement ledger tools.',
     results_tr: 'Hatalı tahminden kaynaklanan gıda fire oranları %34 oranında azaltıldı. Stoksuz kalma (out-of-stock) oranı %1.5\'e indirilerek toplam ciroda %12 doğrudan artış sağlandı.',
@@ -372,10 +329,10 @@ const FAQ_ITEMS = [
   },
   {
     id: 2,
-    q_tr: 'Geliştirilen kurumsal yazılımların kaynak kodları kime ait oluyor?',
-    q_en: 'Who owns the source code and IP rights of the customized software?',
-    a_tr: 'Proje tesliminde tüm kaynak kodları, veri tabanı şemaları ve fikri mülkiyet hakları resmi sözleşme ile tamamen firmanıza devredilir. Herhangi bir yazılımcıya veya bize bağımlı (vendor lock-in) kalmazsınız.',
-    a_en: 'Upon project completion, all source code, database architectures, and intellectual property rights are legally transferred to your enterprise, ensuring zero vendor lock-in.'
+    q_tr: 'Lisans ve kullanım hakları nasıl düzenleniyor?',
+    q_en: 'How are licensing and usage rights structured?',
+    a_tr: 'Teslim edilen yazılım için firmanıza süresiz ve sınırsız ticari kullanım hakkı tanımlanır. Yazılımı operasyonlarınızda lokasyon, kullanıcı veya kullanım senaryosu kısıtı olmaksızın kullanabilirsiniz. Çekirdek altyapı, ortak geliştirme bileşenleri ve kaynak kodları hizmet sağlayıcı tarafından korunur; bu yaklaşım bakım, sürdürülebilirlik, güvenlik güncellemeleri ve teknik destek süreçlerini kurumsal seviyede güvence altına alır.',
+    a_en: 'You receive a perpetual, unlimited commercial usage license for the delivered software. You can use it across your operations without restrictions on locations, users, or business scenarios. Core infrastructure, shared development components, and source code are maintained by the service provider; this model secures maintenance, long-term sustainability, security updates, and enterprise-grade support.'
   },
   {
     id: 3,
@@ -402,94 +359,247 @@ const FAQ_ITEMS = [
 
 const TECH_CATEGORIES = [
   {
-    id: 'solutions',
-    title_tr: 'Business Solutions',
-    title_en: 'Business Solutions',
+    id: 'erp',
+    title_tr: 'ERP Sistemleri',
+    title_en: 'ERP Systems',
     highlight: true,
-    description_tr: 'Teknik detayların ötesinde, işletmenize doğrudan operasyonel verimlilik ve finansal fayda sağlayan iş çözümleri.',
-    description_en: 'Operational capabilities that directly drive efficiency, reduce overhead, and increase productivity.',
+    description_tr: 'Departmanları tek bir merkezde birleştirerek veri bütünlüğü, hız ve denetim sağlar.',
+    description_en: 'Unifies departments under one system to improve data integrity, speed, and auditability.',
     items: [
-      { name_tr: 'ERP (Kurumsal Kaynak Planlama)', name_en: 'ERP (Enterprise Resource Planning)', desc_tr: 'Tüm departmanları ve veri akışını tek bir merkezde birleştirir.', desc_en: 'Unifies all business units and data streams under one roof.' },
-      { name_tr: 'CRM (Müşteri İlişkileri Yönetimi)', name_en: 'CRM (Customer Relationship Management)', desc_tr: 'Satış hunisini otomatikleştirir ve teklif kazanma oranlarını artırır.', desc_en: 'Automates sales pipelines and accelerates quote turnarounds.' },
-      { name_tr: 'Üretim Yönetimi', name_en: 'Production Management', desc_tr: 'Makine uptime (OEE) ve hat verimliliğini anlık izler.', desc_en: 'Monitors machine availability (OEE) and floor bottlenecks.' },
-      { name_tr: 'Stok Takibi', name_en: 'Inventory Tracking', desc_tr: 'Barkod/RFID entegrasyonları ile sevkiyat hatalarını sıfıra indirir.', desc_en: 'Utilizes RFID/barcodes to eliminate warehouse shipment errors.' },
-      { name_tr: 'Operasyon Yönetimi', name_en: 'Operations Management', desc_tr: 'Manuel operasyonel süreçleri dijital iş planlamasına taşır.', desc_en: 'Transforms manual logistics into automated operational workflows.' },
-      { name_tr: 'İş Akışı Otomasyonu', name_en: 'Workflow Automation', desc_tr: 'Departmanlar arası veri entegrasyonu sağlayarak insan hatalarını önler.', desc_en: 'Orchestrates cross-department flows to prevent manual entry errors.' }
+      { name_tr: 'Merkezi veri ve raporlama', name_en: 'Centralized data & reporting', desc_tr: 'Tekil doğru veriye dayalı raporlar ve yönetim panelleri.', desc_en: 'Executive dashboards based on a single source of truth.' },
+      { name_tr: 'Stok, satın alma, finans', name_en: 'Inventory, procurement, finance', desc_tr: 'Operasyonun tüm kritik noktalarında izlenebilirlik.', desc_en: 'Traceability across critical operational areas.' },
+      { name_tr: 'Entegrasyon ve denetim', name_en: 'Integration & auditability', desc_tr: 'Mevcut sistemlerle uyumlu, iz bırakır şekilde çalışan akışlar.', desc_en: 'Traceable flows that integrate with existing systems.' }
     ]
   },
   {
-    id: 'frontend',
-    title_tr: 'Frontend',
-    title_en: 'Frontend',
-    description_tr: 'Kullanıcı dostu, hızlı ve mobil uyumlu modern web arayüzleri.',
-    description_en: 'High-performance, responsive web interfaces designed for seamless user experiences.',
+    id: 'crm',
+    title_tr: 'CRM Çözümleri',
+    title_en: 'CRM Solutions',
+    description_tr: 'Satış, teklif ve müşteri süreçlerini standartlaştırır; takip ve dönüşüm oranını artırır.',
+    description_en: 'Standardizes sales and customer workflows to improve follow-up and conversion rates.',
     items: [
-      { name_tr: 'React & Next.js', name_en: 'React & Next.js', desc_tr: 'Bayi portalları için yüksek hızlı sayfa yüklenmesi.', desc_en: 'Fast page loads for B2B portals and dealer interfaces.' },
-      { name_tr: 'Responsive Tasarım', name_en: 'Responsive Layouts', desc_tr: 'Fabrika sahasındaki tabletlerden mobil cihazlara tam uyum.', desc_en: 'Optimized views from factory floor tablets to mobile screens.' },
-      { name_tr: 'Real-time Web Sockets', name_en: 'Real-time Web Sockets', desc_tr: 'Üretim verilerinin anlık olarak ekrana yansıtılması.', desc_en: 'Instant dashboard sync for manufacturing floor metrics.' }
+      { name_tr: 'Teklif ve fırsat yönetimi', name_en: 'Opportunity & quotation management', desc_tr: 'Süreçleri görünür kılar, aksiyonları hızlandırır.', desc_en: 'Makes the pipeline visible and accelerates next actions.' },
+      { name_tr: 'Hatırlatmalar ve görev akışı', name_en: 'Tasks & reminders', desc_tr: 'Ekip içi koordinasyonu ve müşteri takibini otomatikleştirir.', desc_en: 'Automates coordination and customer follow-ups.' },
+      { name_tr: 'Raporlama ve performans', name_en: 'Reporting & performance', desc_tr: 'Satış metrikleri ve ekip performansı için ölçülebilirlik.', desc_en: 'Measurable sales KPIs and team performance metrics.' }
     ]
   },
   {
-    id: 'backend',
-    title_tr: 'Backend',
-    title_en: 'Backend',
-    description_tr: 'Yüksek veri trafiğini ve karmaşık iş mantığını hatasız yöneten sistemler.',
-    description_en: 'Robust business logic cores built to process massive operational transactions.',
+    id: 'production',
+    title_tr: 'Üretim Takibi',
+    title_en: 'Production Tracking',
+    description_tr: 'Saha verisini görünür hale getirir; verimlilik ve kaliteyi ölçülebilir kılar.',
+    description_en: 'Makes shop-floor data visible and turns productivity and quality into measurable metrics.',
     items: [
-      { name_tr: 'Node.js & NestJS', name_en: 'Node.js & NestJS', desc_tr: 'Kurumsal entegrasyonlar için kararlı ve modüler mimariler.', desc_en: 'Modular framework for reliable corporate microservices.' },
-      { name_tr: 'Go (Golang)', name_en: 'Go (Golang)', desc_tr: 'API entegrasyonlarında yüksek performans ve düşük gecikme süresi.', desc_en: 'High-throughput, low-latency execution for API communication.' },
-      { name_tr: 'Python FastAPI', name_en: 'Python FastAPI', desc_tr: 'Yapay zeka ve veri analiz servislerinin hızlı entegrasyonu.', desc_en: 'Rapid deployment of predictive analytics and forecasting APIs.' }
+      { name_tr: 'Anlık görünürlük', name_en: 'Real-time visibility', desc_tr: 'Hat, istasyon, iş emri ve performans verilerinin takibi.', desc_en: 'Tracking lines, stations, job orders, and performance.' },
+      { name_tr: 'Kayıp ve fire kontrolü', name_en: 'Loss & waste control', desc_tr: 'Sapmaları erken yakalayarak maliyetleri düşürür.', desc_en: 'Catches deviations early to reduce costs.' },
+      { name_tr: 'Kalite ve izlenebilirlik', name_en: 'Quality & traceability', desc_tr: 'Ürün/parti bazında iz sürme ve kalite kayıtları.', desc_en: 'Batch-level traceability and quality records.' }
     ]
   },
   {
-    id: 'database',
-    title_tr: 'Database',
-    title_en: 'Database',
-    description_tr: 'İşletmenizin en değerli varlığı olan verileri güvenle saklayan ve işleyen veritabanları.',
-    description_en: 'Highly available storage architectures designed for data integrity and zero records loss.',
+    id: 'operations',
+    title_tr: 'Operasyon Yönetimi',
+    title_en: 'Operations Management',
+    description_tr: 'Depo, sevkiyat ve saha operasyonlarını tek bir akışta yönetilebilir hale getirir.',
+    description_en: 'Turns warehouse, shipment, and floor operations into a single manageable flow.',
     items: [
-      { name_tr: 'PostgreSQL', name_en: 'PostgreSQL', desc_tr: 'Finansal kayıtlar ve işlem geçmişi için tam ACID güvenliği.', desc_en: 'ACID-compliant relational engine for financial auditing.' },
-      { name_tr: 'Redis Caching', name_en: 'Redis Caching', desc_tr: 'Sık sorgulanan stok verilerini anlık okuyarak hızı artırır.', desc_en: 'In-memory cache for sub-millisecond stock queries.' },
-      { name_tr: 'MongoDB', name_en: 'MongoDB', desc_tr: 'Süreç günlükleri ve esnek veri yapıları için hızlı doküman depolama.', desc_en: 'Flexible document store for event logs and audits.' }
+      { name_tr: 'Siparişten sevkiyata akış', name_en: 'Order-to-shipment flow', desc_tr: 'Uçtan uca koordinasyon ve görev dağılımı.', desc_en: 'End-to-end coordination and task allocation.' },
+      { name_tr: 'Stok ve hareket doğruluğu', name_en: 'Inventory movement accuracy', desc_tr: 'Sayım, giriş-çıkış ve eşleşme hatalarını azaltır.', desc_en: 'Reduces counting, inbound/outbound, and mismatch errors.' },
+      { name_tr: 'Görünür KPI’lar', name_en: 'Visible KPIs', desc_tr: 'Operasyonel performansı raporlar ve iyileştirir.', desc_en: 'Reports and improves operational performance.' }
     ]
   },
   {
-    id: 'devops',
-    title_tr: 'DevOps',
-    title_en: 'DevOps',
-    description_tr: 'Yazılımın kesintisiz ve güvenle güncellenmesini sağlayan altyapılar.',
-    description_en: 'Automated software delivery pipelines preventing deployment failures.',
+    id: 'workflow',
+    title_tr: 'İş Akışı Otomasyonu',
+    title_en: 'Workflow Automation',
+    description_tr: 'Manuel işleri azaltır; onay, bildirim ve veri akışlarını otomatikleştirir.',
+    description_en: 'Reduces manual work by automating approvals, notifications, and data flows.',
     items: [
-      { name_tr: 'Docker', name_en: 'Docker Containerization', desc_tr: 'Farklı sunucularda birebir aynı kararlılıkta çalışma garantisi.', desc_en: 'Ensures application runs identical across cloud environments.' },
-      { name_tr: 'GitHub Actions', name_en: 'GitHub Actions CI/CD', desc_tr: 'Otomatik test ve hata denetimleriyle güvenli sürüm yayınlama.', desc_en: 'Automated tests and deployment scripts to prevent downtime.' },
-      { name_tr: 'Linux System Ops', name_en: 'Linux System Administration', desc_tr: 'Güvenli sunucu yapılandırması ve işletim sistemi optimizasyonu.', desc_en: 'Hardened OS configs and routine security patch scheduling.' }
+      { name_tr: 'Onay zincirleri', name_en: 'Approval chains', desc_tr: 'Yetkilendirme ve onay süreçlerini standartlaştırır.', desc_en: 'Standardizes authorization and approval processes.' },
+      { name_tr: 'Otomatik veri aktarımı', name_en: 'Automated data routing', desc_tr: 'Tekrarlı veri girişlerini azaltır, hataları düşürür.', desc_en: 'Reduces repetitive entry and lowers error rates.' },
+      { name_tr: 'Uyarı ve bildirimler', name_en: 'Alerts & notifications', desc_tr: 'Kritik durumlarda ekipleri hızlı aksiyona yönlendirir.', desc_en: 'Drives fast action in critical scenarios.' }
     ]
   },
   {
-    id: 'cloud',
-    title_tr: 'Cloud',
-    title_en: 'Cloud',
-    description_tr: 'Fiziksel donanım arızalarından bağımsız, kesintisiz çalışma sunan bulut çözümleri.',
-    description_en: 'Highly redundant, high-uptime cloud hosting safeguarding your data.',
+    id: 'transformation',
+    title_tr: 'Dijital Dönüşüm',
+    title_en: 'Digital Transformation',
+    description_tr: 'Dağınık sistemleri tek mimaride birleştirir; süreçleri ölçülebilir hale getirir.',
+    description_en: 'Unifies fragmented systems and makes workflows measurable across the organization.',
     items: [
-      { name_tr: 'AWS (Amazon Web Services)', name_en: 'Amazon Web Services (AWS)', desc_tr: 'Küresel ölçekte sunucu barındırma, yedekleme ve güvenlik duvarı.', desc_en: 'Global scale hosting, network isolation, and encryption.' },
-      { name_tr: 'Google Cloud Platform', name_en: 'Google Cloud Platform (GCP)', desc_tr: 'Büyük veri analizi ve esnek veri depolama entegrasyonu.', desc_en: 'Serverless scalability and real-time big data pipelines.' },
-      { name_tr: 'High-Availability (SLA)', name_en: 'High-Availability & SLA', desc_tr: '%99.9 çalışma süresi ve otomatik felaket kurtarma senaryoları.', desc_en: '99.9% uptime guarantees and automatic backup redundancy.' }
+      { name_tr: 'Entegrasyon odaklı yaklaşım', name_en: 'Integration-first approach', desc_tr: 'Mevcut sistemleri koparmadan entegre eder.', desc_en: 'Integrates without breaking existing systems.' },
+      { name_tr: 'Ölçeklenebilir mimari', name_en: 'Scalable architecture', desc_tr: 'Büyüme ve yeni lokasyonlara hazır yapı.', desc_en: 'Ready for growth and new locations.' },
+      { name_tr: 'Süreklilik ve güvenlik', name_en: 'Continuity & security', desc_tr: 'Bakım, izleme ve destek süreçleri ile süreklilik.', desc_en: 'Continuity backed by maintenance, monitoring, and support.' }
     ]
   },
   {
     id: 'ai',
-    title_tr: 'AI',
-    title_en: 'AI',
-    description_tr: 'Operasyonel verilerinizden anlamlı çıkarımlar yaparak karar süreçlerini destekleyen algoritmalar.',
-    description_en: 'Intelligent engines parsing operational data to drive automated decision making.',
+    title_tr: 'Yapay Zeka Destekli Süreçler',
+    title_en: 'AI-Powered Processes',
+    description_tr: 'Tahminleme ve akıllı yönlendirmelerle karar mekanizmalarını hızlandırır.',
+    description_en: 'Accelerates decision-making through forecasting and smart routing.',
     items: [
-      { name_tr: 'Talep Tahminleme', name_en: 'Demand Forecasting', desc_tr: 'Geçmiş satış verileriyle stok taşıma maliyetlerini azaltma.', desc_en: 'Reduces inventory carrying costs using historical trend models.' },
-      { name_tr: 'RAG & Bilgi Asistanları', name_en: 'RAG & AI Assistants', desc_tr: 'Kurumsal dokümanlarınızı tarayarak personele anlık destek sunan yapay zeka.', desc_en: 'Enables workers to query complex factory guidelines via LLMs.' },
-      { name_tr: 'Doğal Dil Analizi (NLP)', name_en: 'Natural Language Processing (NLP)', desc_tr: 'Müşteri taleplerini otomatik analiz etme ve sınıflandırma.', desc_en: 'Parses and routes incoming support and lead requests automatically.' }
+      { name_tr: 'Talep ve stok tahminleme', name_en: 'Demand & inventory forecasting', desc_tr: 'Stok maliyetlerini düşürmeye yardımcı olur.', desc_en: 'Helps reduce inventory costs and stockouts.' },
+      { name_tr: 'Akıllı sınıflandırma', name_en: 'Smart classification', desc_tr: 'Talepleri otomatik sınıflandırarak ekipleri yönlendirir.', desc_en: 'Routes requests automatically to the right teams.' },
+      { name_tr: 'Karar destek katmanı', name_en: 'Decision support layer', desc_tr: 'Kritik göstergeler için öneri ve uyarı üretir.', desc_en: 'Generates recommendations and alerts for key KPIs.' }
     ]
   }
 ];
+
+const WHY_US_ADVANTAGES = [
+  {
+    id: 1,
+    icon: 'custom',
+    title_tr: 'İşletmeye Özel Çözümler',
+    title_en: 'Tailored Business Solutions',
+    desc_tr: 'Hazır paketler yerine, işletmenizin süreçlerine ve saha gerçeklerine göre tasarlanmış çözümler.',
+    desc_en: 'Custom solutions designed around your real workflows—no generic templates.'
+  },
+  {
+    id: 2,
+    icon: 'analysis',
+    title_tr: 'Süreç Analizi ile Başlayan Yaklaşım',
+    title_en: 'Process-First Approach',
+    desc_tr: 'Koddan önce analiz: darboğazları ve veri akışını netleştirir, riski baştan azaltırız.',
+    desc_en: 'We start with analysis to reduce risk early and clarify bottlenecks and data flow.'
+  },
+  {
+    id: 3,
+    icon: 'support',
+    title_tr: 'Uzun Vadeli Teknik Destek',
+    title_en: 'Long-Term Support',
+    desc_tr: 'Canlı sonrası bakım, izleme ve SLA kapsamlı destek ile operasyon sürekliliğini koruruz.',
+    desc_en: 'Post go-live support, maintenance, and SLA-backed continuity.'
+  },
+  {
+    id: 4,
+    icon: 'scale',
+    title_tr: 'Ölçeklenebilir Yazılım Mimarisi',
+    title_en: 'Scalable Architecture',
+    desc_tr: 'Yeni lokasyonlar, yeni hatlar ve artan işlem hacmi için büyümeye hazır mimari.',
+    desc_en: 'Architecture designed to scale with new sites, lines, and growing transaction volume.'
+  },
+  {
+    id: 5,
+    icon: 'domain',
+    title_tr: 'ERP ve Operasyon Yönetimi Deneyimi',
+    title_en: 'ERP & Operations Expertise',
+    desc_tr: 'ERP, depo, sevkiyat ve üretim süreçlerinde uygulama tecrübesine dayalı yaklaşım.',
+    desc_en: 'Hands-on experience across ERP, warehouse, shipment, and production workflows.'
+  },
+  {
+    id: 6,
+    icon: 'ai',
+    title_tr: 'Yapay Zeka Destekli İş Süreçleri',
+    title_en: 'AI-Powered Processes',
+    desc_tr: 'Tahminleme ve akıllı yönlendirmelerle karar mekanizmalarını hızlandıran katmanlar.',
+    desc_en: 'Forecasting and decision-support layers that accelerate operational decisions.'
+  },
+  {
+    id: 7,
+    icon: 'contact',
+    title_tr: 'Tek Muhatap ile Hızlı İletişim',
+    title_en: 'Single Point of Contact',
+    desc_tr: 'Kararları hızlandıran net iletişim: ihtiyaç analizi, planlama ve teslim tek çizgide ilerler.',
+    desc_en: 'Clear communication and faster decisions with a single accountable contact.'
+  },
+  {
+    id: 8,
+    icon: 'pm',
+    title_tr: 'Kurumsal Proje Yönetimi',
+    title_en: 'Enterprise Project Management',
+    desc_tr: 'Aşamaları net, teslimatları ölçülebilir; sürprizsiz ve şeffaf proje yönetimi.',
+    desc_en: 'Structured phases, measurable delivery, and transparent project management.'
+  }
+];
+
+const getWhyUsIcon = (icon) => {
+  const commonProps = {
+    viewBox: '0 0 24 24',
+    width: 24,
+    height: 24,
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 2
+  };
+
+  switch (icon) {
+    case 'custom':
+      return (
+        <svg {...commonProps}>
+          <path d="M12 2l2.2 4.6L19 8l-3.5 3.4.8 4.8L12 14.8 7.7 16.2l.8-4.8L5 8l4.8-1.4L12 2z" />
+        </svg>
+      );
+    case 'analysis':
+      return (
+        <svg {...commonProps}>
+          <circle cx="11" cy="11" r="7" />
+          <path d="m21 21-4.3-4.3" />
+          <path d="M11 8v3l2 1" />
+        </svg>
+      );
+    case 'support':
+      return (
+        <svg {...commonProps}>
+          <path d="M4 12a8 8 0 0 1 16 0" />
+          <path d="M4 12v4a2 2 0 0 0 2 2h2v-6H6a2 2 0 0 0-2 2" />
+          <path d="M20 12v4a2 2 0 0 1-2 2h-2v-6h2a2 2 0 0 1 2 2" />
+          <path d="M12 19v3" />
+        </svg>
+      );
+    case 'scale':
+      return (
+        <svg {...commonProps}>
+          <path d="M4 20V10" />
+          <path d="M10 20V4" />
+          <path d="M16 20v-8" />
+          <path d="M22 20V8" />
+        </svg>
+      );
+    case 'domain':
+      return (
+        <svg {...commonProps}>
+          <path d="M3 21V8l9-5 9 5v13" />
+          <path d="M9 21v-8h6v8" />
+        </svg>
+      );
+    case 'ai':
+      return (
+        <svg {...commonProps}>
+          <path d="M12 2v4" />
+          <path d="M12 18v4" />
+          <path d="M4 12H2" />
+          <path d="M22 12h-2" />
+          <path d="M6 6l-2-2" />
+          <path d="M20 20l-2-2" />
+          <path d="M18 6l2-2" />
+          <path d="M4 20l2-2" />
+          <circle cx="12" cy="12" r="4" />
+        </svg>
+      );
+    case 'contact':
+      return (
+        <svg {...commonProps}>
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7 12.8 12.8 0 0 0 .7 2.8 2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5 12.8 12.8 0 0 0 2.8.7 2 2 0 0 1 1.7 2.1z" />
+        </svg>
+      );
+    case 'pm':
+      return (
+        <svg {...commonProps}>
+          <path d="M9 12l2 2 4-4" />
+          <path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+          <path d="M9 7h6" />
+        </svg>
+      );
+    default:
+      return (
+        <svg {...commonProps}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 8v4" />
+          <path d="M12 16h.01" />
+        </svg>
+      );
+  }
+};
 
 function App() {
   // Lang state
@@ -508,11 +618,7 @@ function App() {
   // Active section for navigation highlight
   const [activeSection, setActiveSection] = useState('hero');
 
-  // About tab state
-  const [activeTab, setActiveTab] = useState('skills');
-
   // Independent filters state
-  const [serviceFilter, setServiceFilter] = useState('all');
   const [projectFilter, setProjectFilter] = useState('all');
 
   // Modals selected state
@@ -522,13 +628,8 @@ function App() {
   // FAQ state
   const [activeFaq, setActiveFaq] = useState(null);
 
-  // Project Cost Estimator State
-  const [selectedServices, setSelectedServices] = useState([1]); // Default ERP selected
-  const [scale, setScale] = useState('smb'); // startup, smb, enterprise
-  const [speed, setSpeed] = useState('standard'); // standard, express
-
   // Contact form state
-  const [formData, setFormData] = useState({ name: '', email: '', company: '', sector: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', company: '', sector: '', budget: '', timeline: '', message: '' });
   const [formErrors, setFormErrors] = useState({});
   const [formSuccess, setFormSuccess] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
@@ -540,46 +641,20 @@ function App() {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  // Estimator Math Logic calculated directly on render
-  let baseCostSum = 0;
-  let baseWeeksSum = 0;
-
-  selectedServices.forEach((id) => {
-    const service = SERVICES.find((s) => s.id === id);
-    if (service) {
-      baseCostSum += service.baseCost;
-      baseWeeksSum += service.baseWeeks;
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      window.scrollTo({
+        top: contactSection.offsetTop - 80,
+        behavior: 'smooth'
+      });
     }
-  });
-
-  // Scale multiplier (Targeting SMB, Enterprise and Factory scale budgets)
-  let scaleMult = 1.0;
-  let scaleWeeksMult = 1.0;
-  if (scale === 'smb') {
-    scaleMult = 1.8;
-    scaleWeeksMult = 1.3;
-  } else if (scale === 'enterprise') {
-    scaleMult = 3.0;
-    scaleWeeksMult = 1.8;
-  }
-
-  // Speed multiplier
-  let speedMult = 1.0;
-  let speedWeeksMult = 1.0;
-  if (speed === 'express') {
-    speedMult = 1.3;
-    speedWeeksMult = 0.7; // 30% faster
-  }
-
-  const calculatedCost = Math.round(baseCostSum * scaleMult * speedMult);
-  const calculatedWeeks = Math.max(1, Math.round(baseWeeksSum * scaleWeeksMult * speedWeeksMult));
-
-  const estimation = { cost: calculatedCost, weeks: calculatedWeeks };
+  };
 
   // Scroll spy to highlight active nav link
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'services', 'technologies', 'process', 'projects', 'pricing', 'estimator', 'timeline', 'faq', 'contact'];
+      const sections = ['hero', 'why-us', 'services', 'projects', 'process', 'pricing', 'faq', 'contact'];
       const scrollPosition = window.scrollY + 160;
 
       for (const section of sections) {
@@ -613,54 +688,25 @@ function App() {
       setFormErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
+  
+  const startServiceScopeRequest = (service) => {
+    const title = lang === 'tr' ? service.title_tr : service.title_en;
+    const message = lang === 'tr'
+      ? `Merhaba,\n\n"${title}" hizmeti için ön analiz talep ediyorum.\n\n- Mevcut süreç / problem:\n- Hedeflenen çıktı:\n- Entegrasyon ihtiyaçları (ERP, muhasebe, depo vb.):\n- Zaman hedefi:\n\nUygun olduğunuzda dönüş yapabilir misiniz?`
+      : `Hello,\n\nI would like to request a pre-analysis for "${title}".\n\n- Current workflow / problem:\n- Desired outcome:\n- Integration needs (ERP, accounting, warehouse, etc.):\n- Target timeline:\n\nCould you get back to me when available?`;
 
-  // Estimator selection toggler
-  const handleServiceSelect = (id) => {
-    if (selectedServices.includes(id)) {
-      if (selectedServices.length > 1) {
-        setSelectedServices(prev => prev.filter(item => item !== id));
-      }
-    } else {
-      setSelectedServices(prev => [...prev, id]);
-    }
+    setFormData(prev => ({ ...prev, message }));
+    scrollToContact();
   };
 
-  // Push quote parameters to form fields (in USD)
-  const handleExportEstimationToForm = () => {
-    const selectedTextList = selectedServices
-      .map(id => SERVICES.find(s => s.id === id))
-      .map(s => (lang === 'tr' ? s.title_tr : s.title_en))
-      .join(', ');
+  const startProjectScopeRequest = (project) => {
+    const title = lang === 'tr' ? project.title_tr : project.title_en;
+    const message = lang === 'tr'
+      ? `Merhaba,\n\n"${title}" benzeri bir çözüm için ön analiz talep ediyorum.\n\n- Sektör:\n- Operasyon ölçeği:\n- Mevcut sistemler:\n- Entegrasyon ihtiyaçları:\n\nUygun olduğunuzda dönüş yapabilir misiniz?`
+      : `Hello,\n\nI would like to request a pre-analysis for a solution similar to "${title}".\n\n- Industry:\n- Operational scale:\n- Current systems:\n- Integration needs:\n\nCould you get back to me when available?`;
 
-    const scaleLabel = scale === 'startup' 
-      ? t.estimatorScaleStartup 
-      : scale === 'smb' 
-        ? t.estimatorScaleSMB 
-        : t.estimatorScaleEnterprise;
-
-    const speedLabel = speed === 'standard' ? t.estimatorSpeedStandard : t.estimatorSpeedExpress;
-
-    const quoteMessage = `--- ${t.estimationTitleInput} ---
-* ${t.estimationServicesInput} ${selectedTextList}
-* ${t.estimationScaleInput} ${scaleLabel}
-* ${t.estimationSpeedInput} ${speedLabel}
-* ${t.estimationCostInput} $${estimation.cost.toLocaleString('en-US')} USD
-* ${t.estimationTimeInput} ~${estimation.weeks} ${t.estimatorResultTimeVal}
-(${t.estimationDisclaimer})`;
-
-    setFormData(prev => ({
-      ...prev,
-      message: quoteMessage
-    }));
-
-    // Scroll to contact form smoothly
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      window.scrollTo({
-        top: contactSection.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
+    setFormData(prev => ({ ...prev, message }));
+    scrollToContact();
   };
 
   // Form submission handler
@@ -705,7 +751,7 @@ function App() {
       setFormSuccess(true);
 
       // Clear form
-      setFormData({ name: '', email: '', company: '', sector: '', message: '' });
+      setFormData({ name: '', email: '', company: '', sector: '', budget: '', timeline: '', message: '' });
       
       setTimeout(() => {
         setFormSuccess(false);
@@ -717,25 +763,6 @@ function App() {
       setFormLoading(false);
     }
   };
-
-  // Action to select service in estimator and scroll down smoothly
-  const handleSelectServiceAndScroll = (id) => {
-    if (!selectedServices.includes(id)) {
-      setSelectedServices(prev => [...prev, id]);
-    }
-    const estimatorSection = document.getElementById('estimator');
-    if (estimatorSection) {
-      window.scrollTo({
-        top: estimatorSection.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  // Filtered services list
-  const filteredServices = serviceFilter === 'all'
-    ? SERVICES
-    : SERVICES.filter(s => s.category === serviceFilter);
 
   // Filtered projects list
   const filteredProjects = projectFilter === 'all'
@@ -751,13 +778,12 @@ function App() {
             <span className="logo-dot"></span> akın<span>.karadaş</span>
           </a>
           <nav className="nav-links">
-            <a href="#about" className={activeSection === 'about' ? 'active' : ''}>{t.navAbout}</a>
-            <a href="#services" className={activeSection === 'services' ? 'active' : ''}>{lang === 'tr' ? 'Hizmetlerimiz' : 'Services'}</a>
-            <a href="#technologies" className={activeSection === 'technologies' ? 'active' : ''}>{lang === 'tr' ? 'Teknolojiler' : 'Technologies'}</a>
-            <a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{lang === 'tr' ? 'Başarı Hikayeleri' : 'Case Studies'}</a>
-            <a href="#estimator" className={activeSection === 'estimator' ? 'active' : ''}>Bütçe</a>
-            <a href="#timeline" className={activeSection === 'timeline' ? 'active' : ''}>{t.navTimeline}</a>
-            <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>{t.navContact}</a>
+            <a href="#why-us" className={activeSection === 'why-us' ? 'active' : ''}>{lang === 'tr' ? 'Neden Biz?' : 'Why Us?'}</a>
+            <a href="#services" className={activeSection === 'services' ? 'active' : ''}>{lang === 'tr' ? 'Çözümler' : 'Solutions'}</a>
+            <a href="#process" className={activeSection === 'process' ? 'active' : ''}>{lang === 'tr' ? 'Çalışma Süreci' : 'Process'}</a>
+            <a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{lang === 'tr' ? 'Vaka Analizleri' : 'Case Studies'}</a>
+            <a href="#pricing" className={activeSection === 'pricing' ? 'active' : ''}>{lang === 'tr' ? 'Paketler' : 'Packages'}</a>
+            <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>{lang === 'tr' ? 'İletişim' : 'Contact'}</a>
           </nav>
           
           <div className="navbar-controls">
@@ -919,192 +945,45 @@ function App() {
 
 
 
-      {/* About Section */}
-      <section id="about" className="section about-section">
+      <section id="why-us" className="section why-section">
         <div className="section-header">
-          <span className="section-tag">{t.aboutHeaderTag}</span>
-          <h2 className="section-title">{t.aboutHeaderTitle}</h2>
-          <p className="section-subtitle">{t.aboutHeaderSubtitle}</p>
+          <span className="section-tag">{lang === 'tr' ? 'Neden Biz?' : 'Why Us?'}</span>
+          <h2 className="section-title">{lang === 'tr' ? 'Neden Bizimle Çalışmalısınız?' : 'Why Work With Us?'}</h2>
+          <p className="section-subtitle">
+            {lang === 'tr'
+              ? 'Bu proje neden bana yaptırılmalı? Süreç, iletişim ve teslim standardı açısından farkımızı net şekilde ortaya koyuyoruz.'
+              : 'Why should you trust us with your project? Here is what makes the delivery reliable and measurable.'}
+          </p>
         </div>
 
-        <div className="about-grid">
-          {/* Left Info Panel */}
-          <div className="about-info glass-card">
-            <h3>{lang === 'tr' ? 'Neden Akın Karadaş?' : 'Why Akın Karadaş?'}</h3>
-            <p className="about-bio">
-              {t.aboutBio}
-            </p>
-            <div className="stats-row">
-              <div className="stat-item">
-                <span className="stat-number">8+</span>
-                <span className="stat-label">{t.statExperience}</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">40M+ TL</span>
-                <span className="stat-label">{t.statProjects}</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">%99.9</span>
-                <span className="stat-label">{t.statSatisfaction}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Interactive Tab Panel */}
-          <div className="about-tabs glass-card">
-            <div className="tabs-header">
-              <button 
-                className={activeTab === 'skills' ? 'tab-btn active' : 'tab-btn'} 
-                onClick={() => setActiveTab('skills')}
-              >
-                {t.tabSkills}
-              </button>
-              <button 
-                className={activeTab === 'experience' ? 'tab-btn active' : 'tab-btn'} 
-                onClick={() => setActiveTab('experience')}
-              >
-                {t.tabEducation}
-              </button>
-              <button 
-                className={activeTab === 'tools' ? 'tab-btn active' : 'tab-btn'} 
-                onClick={() => setActiveTab('tools')}
-              >
-                {t.tabTools}
-              </button>
-            </div>
-
-            <div className="tabs-content">
-              {activeTab === 'skills' && (
-                <div className="skills-tab animate-fade-in">
-                  <div className="skill-progress">
-                    <div className="skill-label">
-                      <span>ERP & CRM Architecture Integration</span>
-                      <span>98%</span>
-                    </div>
-                    <div className="progress-bar-bg">
-                      <div className="progress-bar-fill" style={{ width: '98%' }}></div>
-                    </div>
-                  </div>
-                  <div className="skill-progress">
-                    <div className="skill-label">
-                      <span>Warehouse Logistics & Supply Chain Automation</span>
-                      <span>95%</span>
-                    </div>
-                    <div className="progress-bar-bg">
-                      <div className="progress-bar-fill" style={{ width: '95%' }}></div>
-                    </div>
-                  </div>
-                  <div className="skill-progress">
-                    <div className="skill-label">
-                      <span>Enterprise Web & B2B Solutions</span>
-                      <span>98%</span>
-                    </div>
-                    <div className="progress-bar-bg">
-                      <div className="progress-bar-fill" style={{ width: '98%' }}></div>
-                    </div>
-                  </div>
-                  <div className="skill-progress">
-                    <div className="skill-label">
-                      <span>High-Availability Cloud Systems & Security SLA</span>
-                      <span>99.9%</span>
-                    </div>
-                    <div className="progress-bar-bg">
-                      <div className="progress-bar-fill" style={{ width: '99%' }}></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {activeTab === 'experience' && (
-                <div className="education-tab animate-fade-in">
-                  <div className="edu-item">
-                    <h4>{lang === 'tr' ? '1. Süreç Analizi & Kapsam Tasarımı' : '1. Workflow Audit & Scope Design'}</h4>
-                    <p className="edu-meta">{lang === 'tr' ? 'İlk Adım' : 'First Step'}</p>
-                    <p className="edu-desc">
-                      {lang === 'tr' 
-                        ? 'İşletmenizi ziyaret edip mevcut operasyonlarınızı, darboğazları ve veri akışını analiz ederek kurumsal ihtiyaçlarınızı belirliyoruz.'
-                        : 'We audit your physical site and operational processes, mapping bottlenecks to design a tailor-made system scope.'}
-                    </p>
-                  </div>
-                  <div className="edu-item">
-                    <h4>{lang === 'tr' ? '2. Entegre Mimari & Güvenli Canlıya Geçiş' : '2. Integrated Architecture & Launch'}</h4>
-                    <p className="edu-meta">{lang === 'tr' ? 'Uygulama' : 'Deployment'}</p>
-                    <p className="edu-desc">
-                      {lang === 'tr'
-                        ? 'Kopuk yazılımlar yerine tüm departmanların entegre çalıştığı, siber güvenlik denetimleri yapılmış, bulut yedeklemeli mimariler kuruyoruz.'
-                        : 'We develop robust and unified systems backed by cloud redundancy, cyber audits, and high reliability standards.'}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {activeTab === 'tools' && (
-                <div className="tools-tab animate-fade-in">
-                  <div className="tools-grid">
-                    <span className="tool-badge">{lang === 'tr' ? 'Tekstil & Konfeksiyon Fabrikaları' : 'Textile & Apparel Factories'}</span>
-                    <span className="tool-badge">{lang === 'tr' ? 'Endüstriyel Üretim Tesisleri' : 'Industrial Manufacturing'}</span>
-                    <span className="tool-badge">{lang === 'tr' ? 'Toptan Ticaret & Dağıtım Ağları' : 'Wholesale & Distribution'}</span>
-                    <span className="tool-badge">{lang === 'tr' ? 'Lojistik & Depo Operasyonları' : 'Logistics & Warehousing'}</span>
-                    <span className="tool-badge">{lang === 'tr' ? 'B2B & Kurumsal Bayi Kanalları' : 'B2B & Dealer Operations'}</span>
-                    <span className="tool-badge">{lang === 'tr' ? 'Özel Süreç Entegrasyonu Arayanlar' : 'Custom Process Integrations'}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Why Work With Me Trust Grid */}
-        <div className="why-us-grid" style={{ marginTop: '50px' }}>
-          <h3 className="sub-section-title" style={{ textAlign: 'center', marginBottom: '30px', fontSize: '20px', fontWeight: '700' }}>
-            {lang === 'tr' ? 'Neden Akın Karadaş Danışmanlığı?' : 'Why Work With Akın Karadaş?'}
-          </h3>
+        <div className="why-content">
           <div className="why-us-cards">
-            <div className="why-us-card glass-card">
-              <div className="why-us-icon">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                  <polyline points="22 4 12 14.01 9 11.01" />
-                </svg>
+            {WHY_US_ADVANTAGES.map((item) => (
+              <div key={item.id} className="why-us-card glass-card">
+                <div className="why-us-icon">
+                  {getWhyUsIcon(item.icon)}
+                </div>
+                <h4>{lang === 'tr' ? item.title_tr : item.title_en}</h4>
+                <p>{lang === 'tr' ? item.desc_tr : item.desc_en}</p>
               </div>
-              <h4>{lang === 'tr' ? 'Sektörel Operasyonel Uzmanlık' : 'Industrial Domain Expertise'}</h4>
-              <p>{lang === 'tr' ? 'Tekstil ve üretim tesislerinin zemin işleyişine, stok barkod/RFID mantığına ve KPI takibine doğrudan hakimiz.' : 'We possess direct ground-level understanding of factory workflows, RFID/barcode inventory systems, and manufacturing KPIs.'}</p>
-            </div>
+            ))}
+          </div>
 
-            <div className="why-us-card glass-card">
-              <div className="why-us-icon">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
-                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
-                  <line x1="6" y1="6" x2="6.01" y2="6" />
-                  <line x1="6" y1="18" x2="6.01" y2="18" />
-                </svg>
-              </div>
-              <h4>{lang === 'tr' ? 'Sıfır Kesinti Taahhüdü' : 'Zero-Downtime Migration'}</h4>
-              <p>{lang === 'tr' ? 'Veri göçü ve sistem entegrasyonu süreçlerini fabrika üretim hatlarını durdurmadan, vardiyaları aksatmadan yönetiyoruz.' : 'We perform critical database migrations and system syncs off-peak to prevent factory production line halts.'}</p>
+          <div className="why-cta glass-card">
+            <div className="why-cta-text">
+              <h3>{lang === 'tr' ? 'İlk Adım: Ücretsiz Süreç Analizi' : 'First Step: Free Process Analysis'}</h3>
+              <p>
+                {lang === 'tr'
+                  ? 'İhtiyaçları birlikte netleştirelim. Sürecinizi analiz edelim, kapsamı çıkaralım ve size uygun yol haritasını hazırlayalım.'
+                  : 'Let’s clarify your needs. We’ll analyze your workflow and prepare a clear roadmap and scope.'}
+              </p>
             </div>
-
-            <div className="why-us-card glass-card">
-              <div className="why-us-icon">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-              </div>
-              <h4>{lang === 'tr' ? 'SLA Uptime & Performans Garantisi' : 'SLA Uptime Guarantee'}</h4>
-              <p>{lang === 'tr' ? 'Sistemlerimizin sürekliliğini ve hata durumlarında acil müdahale sürelerini yasal SLA sözleşmeleriyle garanti ediyoruz.' : 'We back our system availability and emergency response turnaround times with binding service level agreements (SLAs).'}</p>
-            </div>
-
-            <div className="why-us-card glass-card">
-              <div className="why-us-icon">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="8" x2="12" y2="12" />
-                  <line x1="12" y1="16" x2="12.01" y2="16" />
-                </svg>
-              </div>
-              <h4>{lang === 'tr' ? 'Şeffaf Bütçe & Sürprizsiz Maliyet' : 'Transparent Pricing & Planning'}</h4>
-              <p>{lang === 'tr' ? 'Gizli maliyetler barındırmayan, iş paketlerine dayalı bütçelendirmelerle mali risklerinizi sıfıra indiriyoruz.' : 'We eliminate capital expenditure risks with predefined project milestones and zero hidden vendor costs.'}</p>
-            </div>
+            <a href="#contact" className="btn btn-primary glow-button">
+              {lang === 'tr' ? 'Ücretsiz Analiz Talep Et' : 'Request a Free Audit'}
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
@@ -1115,39 +994,24 @@ function App() {
           <span className="section-tag">{lang === 'tr' ? 'Çözümlerimiz' : 'Our Solutions'}</span>
           <h2 className="section-title">{lang === 'tr' ? 'Dijital Dönüşüm Modülleri & Hizmetler' : 'Digital Transformation Modules & Services'}</h2>
           <p className="section-subtitle">{lang === 'tr' ? 'İşletmenizin operasyonel verimliliğini artıran entegre kurumsal yazılım hizmetleri.' : 'Integrated enterprise software services engineered to optimize your business operations.'}</p>
-        </div>
-
-        {/* Filter Controls for Services */}
-        <div className="project-filters">
-          <button className={serviceFilter === 'all' ? 'filter-btn active' : 'filter-btn'} onClick={() => setServiceFilter('all')}>
-            {lang === 'tr' ? 'Tüm Çözümler' : 'All Solutions'}
-          </button>
-          <button className={serviceFilter === 'systems' ? 'filter-btn active' : 'filter-btn'} onClick={() => setServiceFilter('systems')}>
-            {lang === 'tr' ? 'ERP & Sistemler' : 'ERP & Systems'}
-          </button>
-          <button className={serviceFilter === 'web' ? 'filter-btn active' : 'filter-btn'} onClick={() => setServiceFilter('web')}>
-            {lang === 'tr' ? 'B2B & Web Platformları' : 'B2B & Web'}
-          </button>
-          <button className={serviceFilter === 'custom' ? 'filter-btn active' : 'filter-btn'} onClick={() => setServiceFilter('custom')}>
-            {lang === 'tr' ? 'Süreç Otomasyonu & Yapay Zeka' : 'Automation & AI'}
-          </button>
-          <button className={serviceFilter === 'cloud' ? 'filter-btn active' : 'filter-btn'} onClick={() => setServiceFilter('cloud')}>
-            {lang === 'tr' ? 'API Entegrasyonları' : 'API Integrations'}
-          </button>
-          <button className={serviceFilter === 'support' ? 'filter-btn active' : 'filter-btn'} onClick={() => setServiceFilter('support')}>
-            {lang === 'tr' ? 'Bakım & Destek SLA' : 'Maintenance & SLA'}
-          </button>
+          <div className="tools-grid">
+            {TECH_CATEGORIES.map((item) => (
+              <span key={item.id} className="tool-badge">
+                {lang === 'tr' ? item.title_tr : item.title_en}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Services Grid */}
         <div className="projects-grid">
-          {filteredServices.map((service) => (
+          {SERVICES.map((service) => (
             <div key={service.id} className="project-card glass-card animate-scale-up">
               <div className="project-image-wrapper">
                 <img src={service.image} alt={lang === 'tr' ? service.title_tr : service.title_en} />
                 <div className="project-image-overlay">
-                  <button className="btn btn-detail" onClick={() => handleSelectServiceAndScroll(service.id)}>
-                    {lang === 'tr' ? 'Bütçe Planlayıcıda Seç' : 'Add to Budget Planner'}
+                  <button className="btn btn-detail" onClick={() => setSelectedService(service)}>
+                    {lang === 'tr' ? 'Detayları Gör' : 'View Details'}
                   </button>
                 </div>
               </div>
@@ -1185,83 +1049,50 @@ function App() {
         </div>
       </section>
 
-      {/* Technologies Section */}
-      <section id="technologies" className="section technologies-section">
-        <div className="section-header">
-          <span className="section-tag">{lang === 'tr' ? 'Teknolojik Güç' : 'Technological Stack'}</span>
-          <h2 className="section-title">{lang === 'tr' ? 'İş Değeri Odaklı Teknolojiler' : 'Value-Driven Enterprise Technologies'}</h2>
-          <p className="section-subtitle">
-            {lang === 'tr' 
-              ? 'Yazılım dillerinin ötesinde, işletmenize operasyonel hız, kayıpsız veri ve finansal denetim sağlayan altyapılar.' 
-              : 'Beyond programming jargon: operational capabilities built to secure data, accelerate throughput, and ensure auditability.'}
-          </p>
-        </div>
-
-        <div className="tech-cards-grid">
-          {TECH_CATEGORIES.map((category) => (
-            <div 
-              key={category.id} 
-              className={`tech-card glass-card ${category.highlight ? 'highlight-card' : ''}`}
-            >
-              {category.highlight && (
-                <div className="highlight-badge">
-                  {lang === 'tr' ? 'Kurumsal Odak' : 'Enterprise Focus'}
-                </div>
-              )}
-              <h3>{lang === 'tr' ? category.title_tr : category.title_en}</h3>
-              <p className="tech-category-desc">
-                {lang === 'tr' ? category.description_tr : category.description_en}
-              </p>
-              <ul className="tech-items-list">
-                {category.items.map((item, idx) => (
-                  <li key={idx} className="tech-item-row">
-                    <div className="tech-item-bullet-wrapper">
-                      <span className="tech-item-bullet"></span>
-                      <strong className="tech-item-name">{lang === 'tr' ? item.name_tr : item.name_en}</strong>
-                    </div>
-                    <span className="tech-item-desc">{lang === 'tr' ? item.desc_tr : item.desc_en}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Methodology / Working & Delivery Process Section */}
       <section id="process" className="section process-section">
         <div className="section-header">
-          <span className="section-tag">{lang === 'tr' ? 'Metodoloji' : 'Methodology'}</span>
-          <h2 className="section-title">{lang === 'tr' ? 'Uçtan Uca Çalışma ve Teslim Süreci' : 'End-to-End Delivery Workflow'}</h2>
+          <span className="section-tag">{lang === 'tr' ? 'Çalışma Sürecimiz' : 'Our Process'}</span>
+          <h2 className="section-title">{lang === 'tr' ? 'Projeniz Nasıl İlerler?' : 'How Your Project Moves Forward'}</h2>
           <p className="section-subtitle">
             {lang === 'tr' 
-              ? 'Süreç analizinden siber güvenlik denetimlerine, sistemlerimizi sıfır hata ve tam şeffaflıkla devreye alıyoruz.' 
-              : 'From process audit to cybersecurity pen-testing, we deploy our systems with zero-error standards.'}
+              ? 'Başından sonuna net adımlar, şeffaf planlama ve kurumsal teslim standartlarıyla ilerleriz.' 
+              : 'Clear steps, transparent planning, and enterprise-grade delivery standards.'}
           </p>
         </div>
 
         <div className="process-flow-container">
-          <h3 className="process-sub-title">{lang === 'tr' ? '1. Uygulama ve Çalışma Adımları' : '1. Working & Integration Steps'}</h3>
+          <h3 className="process-sub-title">{lang === 'tr' ? 'Uçtan Uca Teslim Akışı' : 'End-to-End Delivery Flow'}</h3>
           <div className="process-steps-grid">
             <div className="process-step-card glass-card">
               <div className="step-num">01</div>
-              <h4>{lang === 'tr' ? 'Keşif ve Saha Analizi' : 'Audit & Discovery'}</h4>
-              <p>{lang === 'tr' ? 'İşletmenizi ziyaret edip departmanların işleyişini, fiziksel darboğazları ve veri akışını yerinde analiz ediyoruz.' : 'We visit your facility to map physical queues, spreadsheet dependencies, and operational bottleneck points.'}</p>
+              <h4>{lang === 'tr' ? 'Analiz ve Keşif' : 'Analysis & Discovery'}</h4>
+              <p>{lang === 'tr' ? 'Mevcut süreçleri ve veri akışını inceler, darboğazları tespit eder ve hedef çıktıları netleştiririz.' : 'We review your workflows and data flows, identify bottlenecks, and clarify expected outcomes.'}</p>
             </div>
             <div className="process-step-card glass-card">
               <div className="step-num">02</div>
-              <h4>{lang === 'tr' ? 'Mimari ve Kapsam Tasarımı' : 'System Design'}</h4>
-              <p>{lang === 'tr' ? 'Veritabanı şemalarını, API entegrasyon köprülerini ve donanım konumlandırmalarını kapsayan proje şartnamesini hazırlarız.' : 'We draft system layout blueprints, API integration maps, and hardware scopes to establish a contract scope.'}</p>
+              <h4>{lang === 'tr' ? 'Süreç Tasarımı' : 'Process Design'}</h4>
+              <p>{lang === 'tr' ? 'İş kurallarını, onay akışlarını ve rol yetkilendirmeleri tasarlar; kapsamı dokümante ederiz.' : 'We design business rules, approvals, and permissions, then document the scope.'}</p>
             </div>
             <div className="process-step-card glass-card">
               <div className="step-num">03</div>
-              <h4>{lang === 'tr' ? 'Geliştirme ve Test Fazı' : 'Development & Test'}</h4>
-              <p>{lang === 'tr' ? 'Modülleri güvenli bir test ortamında geliştiriyor, veritabanı senkronizasyonlarını ve veri göçü testlerini tamamlıyoruz.' : 'We write modules in sandbox environments and run simulated database migrations to ensure full ledger validation.'}</p>
+              <h4>{lang === 'tr' ? 'Yazılım Geliştirme' : 'Software Development'}</h4>
+              <p>{lang === 'tr' ? 'Sprint bazlı geliştirme ile modülleri inşa eder, entegrasyonları kurar ve düzenli demo’larla ilerleriz.' : 'We build modules in sprints, implement integrations, and keep progress visible through regular demos.'}</p>
             </div>
             <div className="process-step-card glass-card">
               <div className="step-num">04</div>
-              <h4>{lang === 'tr' ? 'Güvenli Canlıya Geçiş' : 'Secure Launch'}</h4>
-              <p>{lang === 'tr' ? 'Siber sızma testlerini gerçekleştirip, personelinize uygulamalı tablet/terminal eğitimleri vererek sistemi canlıya alıyoruz.' : 'We execute network penetration checks, run on-site worker tablet drills, and switch the system live.'}</p>
+              <h4>{lang === 'tr' ? 'Test ve Kalite Kontrol' : 'Testing & QA'}</h4>
+              <p>{lang === 'tr' ? 'Fonksiyonel testler, veri doğrulama, performans kontrolleri ve güvenlik kontrolleri ile kaliteyi garanti ederiz.' : 'We run functional tests, data validation, performance checks, and security reviews to ensure quality.'}</p>
+            </div>
+            <div className="process-step-card glass-card">
+              <div className="step-num">05</div>
+              <h4>{lang === 'tr' ? 'Canlıya Alma' : 'Go Live'}</h4>
+              <p>{lang === 'tr' ? 'Planlı geçiş ile canlıya alır; veri aktarımı, izleme ve geri dönüş planı ile risksiz devreye alırız.' : 'We go live with a planned rollout, including migration, monitoring, and rollback safety.'}</p>
+            </div>
+            <div className="process-step-card glass-card">
+              <div className="step-num">06</div>
+              <h4>{lang === 'tr' ? 'Eğitim ve Destek' : 'Training & Support'}</h4>
+              <p>{lang === 'tr' ? 'Ekibinize eğitim verir, kullanım kılavuzlarını paylaşır ve SLA kapsamında uzun vadeli teknik destek sağlarız.' : 'We train your team, provide guides, and deliver long-term technical support under SLA.'}</p>
             </div>
           </div>
         </div>
@@ -1278,7 +1109,7 @@ function App() {
               </div>
               <div className="handover-details">
                 <h4>{lang === 'tr' ? 'Çalışan Canlı Sistem & Bulut Altyapısı' : 'Operating Cloud System & SLA'}</h4>
-                <p>{lang === 'tr' ? 'AWS veya Google Cloud üzerinde kurulu, tüm güvenlik ve yedekleme sistemleri aktif çalışan mimari.' : 'Full production infrastructure deployed on AWS or Google Cloud, configured with automated backups.'}</p>
+                <p>{lang === 'tr' ? 'Kurumsal bulut altyapısı üzerinde kurulu; güvenlik, yedekleme ve izleme katmanları aktif çalışan canlı mimari.' : 'Production-grade cloud infrastructure with active security, backup, and monitoring layers.'}</p>
               </div>
             </div>
 
@@ -1388,12 +1219,12 @@ function App() {
       {/* Pricing Section */}
       <section id="pricing" className="section pricing-section">
         <div className="section-header">
-          <span className="section-tag">{lang === 'tr' ? 'Bütçe Kılavuzu' : 'Budget Guide'}</span>
-          <h2 className="section-title">{lang === 'tr' ? 'Şeffaf Yatırım Paketleri' : 'Transparent Investment Tiers'}</h2>
+          <span className="section-tag">{lang === 'tr' ? 'Çözüm Paketleri' : 'Solution Packages'}</span>
+          <h2 className="section-title">{lang === 'tr' ? 'İhtiyacınıza Göre Net Paketler' : 'Clear Packages by Need'}</h2>
           <p className="section-subtitle">
             {lang === 'tr' 
-              ? 'İşletmenizin ölçeğine ve dijitalleşme hedeflerine uygun, gizli maliyet barındırmayan fiyatlandırma modelleri.' 
-              : 'Pricing tiers aligned with your business scale and digital objectives, with zero hidden fees.'}
+              ? 'Paketler fiyat göstermekten çok; kapsam, entegrasyon ihtiyacı ve beklenen iş çıktısı üzerinden konumlanır.' 
+              : 'Packages are positioned by scope, integration needs, and expected business outcomes—not by price alone.'}
           </p>
         </div>
 
@@ -1401,12 +1232,12 @@ function App() {
           {/* Launch Card */}
           <div className="pricing-card glass-card animate-scale-up">
             <div className="pricing-card-header">
-              <span className="pricing-badge">Launch</span>
+              <span className="pricing-badge">{lang === 'tr' ? 'Başlangıç' : 'Launch'}</span>
               <h3>{lang === 'tr' ? 'Kurumsal Web Platformu' : 'Corporate Web Platform'}</h3>
               <p className="pricing-target-desc">{lang === 'tr' ? 'Dijital vitrinini kurmak isteyen KOBİ\'ler için' : 'For SMBs launching their digital corporate presence'}</p>
               <div className="pricing-price-area">
-                <span className="price-range">40.000 TL - 80.000 TL</span>
-                <span className="price-period">{lang === 'tr' ? '/ proje bütçesi' : '/ project budget'}</span>
+                <span className="price-range">{lang === 'tr' ? '40.000 TL’den başlayan' : 'Starting from 40,000 TRY'}</span>
+                <span className="price-period">{lang === 'tr' ? 'kapsama göre' : 'depending on scope'}</span>
               </div>
             </div>
             
@@ -1454,7 +1285,7 @@ function App() {
 
             <div className="pricing-card-footer">
               <a href="#contact" className="btn btn-secondary pricing-action-btn">
-                {lang === 'tr' ? 'Launch Projesi Başlat' : 'Start Launch Project'}
+                {lang === 'tr' ? 'Kapsam Görüşmesi Talep Et' : 'Request a Scope Call'}
               </a>
             </div>
           </div>
@@ -1463,12 +1294,12 @@ function App() {
           <div className="pricing-card pricing-card-featured glass-card animate-scale-up">
             <div className="featured-ribbon">{lang === 'tr' ? 'EN ÇOK SEÇİLEN' : 'MOST POPULAR'}</div>
             <div className="pricing-card-header">
-              <span className="pricing-badge badge-featured">Growth</span>
+              <span className="pricing-badge badge-featured">{lang === 'tr' ? 'Büyüme' : 'Growth'}</span>
               <h3>{lang === 'tr' ? 'Kurumsal Web + Yönetim Paneli' : 'Corporate Web + Panel'}</h3>
               <p className="pricing-target-desc">{lang === 'tr' ? 'Süreçlerini dijital panelden yönetmek isteyen üreticiler için' : 'For manufacturers seeking remote administration panels'}</p>
               <div className="pricing-price-area">
-                <span className="price-range">80.000 TL - 150.000 TL</span>
-                <span className="price-period">{lang === 'tr' ? '/ proje bütçesi' : '/ project budget'}</span>
+                <span className="price-range">{lang === 'tr' ? '80.000 TL’den başlayan' : 'Starting from 80,000 TRY'}</span>
+                <span className="price-period">{lang === 'tr' ? 'kapsama göre' : 'depending on scope'}</span>
               </div>
             </div>
 
@@ -1516,7 +1347,7 @@ function App() {
 
             <div className="pricing-card-footer">
               <a href="#contact" className="btn btn-primary pricing-action-btn glow-button">
-                {lang === 'tr' ? 'Growth Projesi Başlat' : 'Start Growth Project'}
+                {lang === 'tr' ? 'Kapsam Görüşmesi Talep Et' : 'Request a Scope Call'}
               </a>
             </div>
           </div>
@@ -1524,12 +1355,12 @@ function App() {
           {/* Enterprise Card */}
           <div className="pricing-card glass-card animate-scale-up">
             <div className="pricing-card-header">
-              <span className="pricing-badge">Enterprise</span>
+              <span className="pricing-badge">{lang === 'tr' ? 'Kurumsal' : 'Enterprise'}</span>
               <h3>{lang === 'tr' ? 'Özel Yazılım, ERP, CRM & Üretim Takip' : 'Custom software, ERP, CRM & WMS'}</h3>
               <p className="pricing-target-desc">{lang === 'tr' ? 'Uçtan uca dijital dönüşüm hedefleyen sanayi ve tekstil holdingleri için' : 'For large industrial holdings demanding custom ecosystems'}</p>
               <div className="pricing-price-area">
-                <span className="price-range text-quote">{lang === 'tr' ? 'TEKLİF USULÜ' : 'CUSTOM QUOTE'}</span>
-                <span className="price-period">{lang === 'tr' ? 'Kapsam bazlı planlama' : 'Based on audit requirements'}</span>
+                <span className="price-range text-quote">{lang === 'tr' ? 'Analiz Sonrası Tekliflendirilir' : 'Quoted After Analysis'}</span>
+                <span className="price-period">{lang === 'tr' ? 'Saha analizi + kapsam tasarımı sonrası' : 'After audit + scope design'}</span>
               </div>
             </div>
 
@@ -1615,93 +1446,6 @@ function App() {
         </div>
       </section>
 
-      {/* Cost Estimator Section */}
-      <section id="estimator" className="section estimator-section">
-        <div className="hero-glow-1" style={{ top: '30%', right: '10%' }}></div>
-        <div className="section-header">
-          <span className="section-tag">Yatırım Planlama</span>
-          <h2 className="section-title">{t.estimatorTitle}</h2>
-          <p className="section-subtitle">{t.estimatorSubtitle}</p>
-        </div>
-
-        <div className="estimator-grid glass-card">
-          <div className="estimator-form-panel">
-            <h3 className="estimator-panel-title">{t.estimatorServices}</h3>
-            <div className="estimator-checkbox-group">
-              {SERVICES.map((service) => (
-                <label 
-                  key={service.id} 
-                  className={selectedServices.includes(service.id) ? 'estimator-checkbox-card active' : 'estimator-checkbox-card'}
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedServices.includes(service.id)}
-                    onChange={() => handleServiceSelect(service.id)}
-                  />
-                  <div className="checkbox-info">
-                    <span className="checkbox-title">{lang === 'tr' ? service.title_tr : service.title_en}</span>
-                    <span className="checkbox-price">~${service.baseCost.toLocaleString('en-US')} USD</span>
-                  </div>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div className="estimator-results-panel">
-            <div className="estimator-options">
-              <div className="option-group">
-                <h4>{t.estimatorScale}</h4>
-                <div className="radio-group">
-                  <label className={scale === 'startup' ? 'radio-card active' : 'radio-card'}>
-                    <input type="radio" name="scale" checked={scale === 'startup'} onChange={() => setScale('startup')} />
-                    <span>{t.estimatorScaleStartup} (1.0x)</span>
-                  </label>
-                  <label className={scale === 'smb' ? 'radio-card active' : 'radio-card'}>
-                    <input type="radio" name="scale" checked={scale === 'smb'} onChange={() => setScale('smb')} />
-                    <span>{t.estimatorScaleSMB} (1.8x)</span>
-                  </label>
-                  <label className={scale === 'enterprise' ? 'radio-card active' : 'radio-card'}>
-                    <input type="radio" name="scale" checked={scale === 'enterprise'} onChange={() => setScale('enterprise')} />
-                    <span>{t.estimatorScaleEnterprise} (3.0x)</span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="option-group">
-                <h4>{t.estimatorSpeed}</h4>
-                <div className="radio-group">
-                  <label className={speed === 'standard' ? 'radio-card active' : 'radio-card'}>
-                    <input type="radio" name="speed" checked={speed === 'standard'} onChange={() => setSpeed('standard')} />
-                    <span>{t.estimatorSpeedStandard}</span>
-                  </label>
-                  <label className={speed === 'express' ? 'radio-card active' : 'radio-card'}>
-                    <input type="radio" name="speed" checked={speed === 'express'} onChange={() => setSpeed('express')} />
-                    <span>{t.estimatorSpeedExpress}</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="results-box">
-              <div className="result-metric">
-                <span className="metric-label">{t.estimatorResultCost}</span>
-                <span className="metric-value">${estimation.cost.toLocaleString('en-US')} <span className="currency">USD</span></span>
-              </div>
-              <div className="result-metric">
-                <span className="metric-label">{t.estimatorResultTime}</span>
-                <span className="metric-value">~{estimation.weeks} <span className="weeks-lbl">{t.estimatorResultTimeVal}</span></span>
-              </div>
-
-              <button className="btn btn-primary export-btn" onClick={handleExportEstimationToForm}>
-                {t.estimatorResultAction}
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 5v14M5 12h14" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
       {/* Modal Dialog */}
       {selectedService && (
         <div className="modal-overlay" onClick={() => setSelectedService(null)}>
@@ -1755,7 +1499,7 @@ function App() {
                 </div>
 
                 <div className="modal-actions">
-                  <button className="btn btn-primary" onClick={() => { setSelectedService(null); handleExportEstimationToForm(); }}>
+                  <button className="btn btn-primary" onClick={() => { const svc = selectedService; setSelectedService(null); startServiceScopeRequest(svc); }}>
                     {t.projectLink}
                   </button>
                 </div>
@@ -1861,7 +1605,7 @@ function App() {
               </div>
 
               <div className="modal-actions" style={{ padding: '0 24px 24px', justifyContent: 'flex-end' }}>
-                <button className="btn btn-primary" onClick={() => { setSelectedProject(null); handleExportEstimationToForm(); }}>
+                <button className="btn btn-primary" onClick={() => { const proj = selectedProject; setSelectedProject(null); startProjectScopeRequest(proj); }}>
                   {lang === 'tr' ? 'Benzer Bir Çözüm Talep Edin' : 'Request a Similar Solution'}
                 </button>
               </div>
@@ -1871,57 +1615,25 @@ function App() {
       )}
 
 
-      {/* Career Timeline Section */}
-      <section id="timeline" className="section timeline-section">
-        <div className="section-header">
-          <span className="section-tag">{t.timelineHeaderTag}</span>
-          <h2 className="section-title">{t.timelineHeaderTitle}</h2>
-          <p className="section-subtitle">{t.timelineHeaderSubtitle}</p>
-        </div>
-
-        <div className="timeline-container">
-          <div className="timeline-line"></div>
-          
-          <div className="timeline-item left glass-card">
-            <div className="timeline-dot"></div>
-            <div className="timeline-date">2024 - {lang === 'tr' ? 'Günümüz' : 'Present'}</div>
-            <h3>{lang === 'tr' ? 'Kurucu & Baş Teknoloji Danışmanı' : 'Founder & Principal Technology Advisor'}</h3>
-            <h4 className="company">Karadaş Teknoloji Danışmanlığı</h4>
-            <p>
-              {lang === 'tr'
-                ? 'Üretim tesisleri, tekstil fabrikaları ve büyük ölçekli toptancılar için dijitalleşme yol haritaları hazırlamak, özel ERP/CRM entegrasyonlarını ve RFID depo otomasyonlarını yönetmek.'
-                : 'Drafting digital transformation roadmaps, orchestrating enterprise ERP/CRM modules, and delivering RFID-powered WMS automation for textile plants and logistics groups.'}
-            </p>
-          </div>
-
-          <div className="timeline-item right glass-card">
-            <div className="timeline-dot"></div>
-            <div className="timeline-date">2021 - 2024</div>
-            <h3>{lang === 'tr' ? 'Kıdemli Kurumsal Çözümler Mimarı' : 'Senior Enterprise Solutions Architect'}</h3>
-            <h4 className="company">TechNova Systems</h4>
-            <p>
-              {lang === 'tr'
-                ? 'Büyük ölçekli B2B/B2C bayi ağları ve e-ticaret altyapılarının tasarımı, Stripe/iyzico ödeme orkestrasyonu ve ERP veri senkronizasyonlarının kurulması.'
-                : 'Architecting wholesale B2B platform layouts, payment processor integrations (Stripe, iyzico), and scheduling database clustering syncs.'}
-            </p>
-          </div>
-
-          <div className="timeline-item left glass-card">
-            <div className="timeline-dot"></div>
-            <div className="timeline-date">2018 - 2021</div>
-            <h3>{lang === 'tr' ? 'Sistem Entegrasyon Uzmanı' : 'System Integration Specialist'}</h3>
-            <h4 className="company">WebCloud Enterprise</h4>
-            <p>
-              {lang === 'tr'
-                ? 'Linux tabanlı bulut altyapı yönetimi, ağ güvenliği denetimleri, WAF sıkılaştırma ve KVKK/GDPR uyumlu veri saklama sistemlerinin devreye alınması.'
-                : 'Managing Linux cloud server grids, network hardening audits, configuring WAF firewalls, and deployment of KVKK/GDPR-compliant DB masks.'}
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section id="faq" className="section faq-section">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: FAQ_ITEMS.map((item) => ({
+                '@type': 'Question',
+                name: item.q_tr,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: item.a_tr
+                }
+              }))
+            })
+          }}
+        />
         <div className="section-header">
           <span className="section-tag">{lang === 'tr' ? 'Sık Sorulan Sorular' : 'FAQ'}</span>
           <h2 className="section-title">{lang === 'tr' ? 'Kafanıza Takılan Sorular' : 'Frequently Asked Questions'}</h2>
@@ -1981,7 +1693,7 @@ function App() {
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
-                <a href="mailto:akin@akkinkaradas.com.tr">akin@akkinkaradas.com.tr</a>
+                <a href="mailto:akin@akinkaradas.com.tr">akin@akinkaradas.com.tr</a>
               </div>
               <div className="info-row">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
@@ -2045,6 +1757,42 @@ function App() {
                   className="form-input"
                   placeholder={lang === 'tr' ? 'Örn. Tekstil / Üretim' : 'e.g. Manufacturing / Wholesale'}
                 />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="budget">{lang === 'tr' ? 'Bütçe Aralığı (Opsiyonel)' : 'Budget Range (Optional)'}</label>
+                <select
+                  id="budget"
+                  name="budget"
+                  value={formData.budget}
+                  onChange={handleInputChange}
+                  className="form-input"
+                >
+                  <option value="">{lang === 'tr' ? 'Seçiniz' : 'Select'}</option>
+                  <option value="250000-500000">{lang === 'tr' ? '₺250.000 – ₺500.000' : '₺250,000 – ₺500,000'}</option>
+                  <option value="500000-1000000">{lang === 'tr' ? '₺500.000 – ₺1.000.000' : '₺500,000 – ₺1,000,000'}</option>
+                  <option value="1000000-2500000">{lang === 'tr' ? '₺1.000.000 – ₺2.500.000' : '₺1,000,000 – ₺2,500,000'}</option>
+                  <option value="2500000+">{lang === 'tr' ? '₺2.500.000+' : '₺2,500,000+'}</option>
+                  <option value="not-sure">{lang === 'tr' ? 'Net değil / Analiz sonrası' : 'Not sure / after analysis'}</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="timeline">{lang === 'tr' ? 'Zaman Hedefi (Opsiyonel)' : 'Timeline (Optional)'}</label>
+                <select
+                  id="timeline"
+                  name="timeline"
+                  value={formData.timeline}
+                  onChange={handleInputChange}
+                  className="form-input"
+                >
+                  <option value="">{lang === 'tr' ? 'Seçiniz' : 'Select'}</option>
+                  <option value="0-1m">{lang === 'tr' ? '0–1 Ay' : '0–1 Month'}</option>
+                  <option value="1-2m">{lang === 'tr' ? '1–2 Ay' : '1–2 Months'}</option>
+                  <option value="2-3m">{lang === 'tr' ? '2–3 Ay' : '2–3 Months'}</option>
+                  <option value="3-6m">{lang === 'tr' ? '3–6 Ay' : '3–6 Months'}</option>
+                  <option value="6m+">{lang === 'tr' ? '6 Ay+' : '6+ Months'}</option>
+                </select>
               </div>
 
               <div className="form-group">
@@ -2139,7 +1887,7 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Akın Karadaş. {lang === 'tr' ? 'Tüm Hakları Saklıdır. v.1.0.1' : 'All Rights Reserved. v.1.0.1'}</p>
+        <p>&copy; {new Date().getFullYear()} Akın Karadaş. {lang === 'tr' ? 'Tüm Hakları Saklıdır. v.1.1.0' : 'All Rights Reserved. v.1.1.0'}</p>
       </footer>
     </>
   );

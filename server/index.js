@@ -17,7 +17,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.post('/api/contact', async (req, res) => {
-  const { name, email, message } = req.body;
+  const { name, email, company, sector, budget, timeline, message } = req.body;
 
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Lütfen tüm alanları doldurun.' });
@@ -30,6 +30,10 @@ app.post('/api/contact', async (req, res) => {
     console.log(`Received contact form message:
 Name: ${name}
 Email: ${email}
+Company: ${company || '-'}
+Sector: ${sector || '-'}
+Budget: ${budget || '-'}
+Timeline: ${timeline || '-'}
 Message: ${message}`);
     return res.status(200).json({
       success: true,
@@ -58,11 +62,15 @@ Message: ${message}`);
       replyTo: email, // Reply goes to sender
       to: process.env.RECEIVER_EMAIL || 'akin@akinkaradas.com.tr',
       subject: `akinkaradas.com.tr - Yeni İletişim Formu Mesajı`,
-      text: `Adı Soyadı: ${name}\nE-posta: ${email}\n\nMesaj:\n${message}`,
+      text: `Adı Soyadı: ${name}\nE-posta: ${email}\nŞirket: ${company || '-'}\nSektör: ${sector || '-'}\nBütçe: ${budget || '-'}\nZaman Hedefi: ${timeline || '-'}\n\nMesaj:\n${message}`,
       html: `
         <h3>Yeni İletişim Formu Mesajı</h3>
         <p><strong>Adı Soyadı:</strong> ${name}</p>
         <p><strong>E-posta:</strong> ${email}</p>
+        <p><strong>Şirket:</strong> ${company || '-'}</p>
+        <p><strong>Sektör:</strong> ${sector || '-'}</p>
+        <p><strong>Bütçe:</strong> ${budget || '-'}</p>
+        <p><strong>Zaman Hedefi:</strong> ${timeline || '-'}</p>
         <p><strong>Mesaj:</strong></p>
         <p style="white-space: pre-wrap;">${message}</p>
       `
