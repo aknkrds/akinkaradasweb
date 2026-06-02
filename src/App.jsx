@@ -2139,7 +2139,7 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Akın Karadaş. {lang === 'tr' ? 'Tüm Hakları Saklıdır. v.0.1' : 'All Rights Reserved. v.0.1'}</p>
+        <p>&copy; {new Date().getFullYear()} Akın Karadaş. {lang === 'tr' ? 'Tüm Hakları Saklıdır. v.1.0.1' : 'All Rights Reserved. v.1.0.1'}</p>
       </footer>
     </>
   );
